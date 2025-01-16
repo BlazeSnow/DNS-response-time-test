@@ -1,6 +1,6 @@
 import csv
 import time
-import subprocess
+import dns.resolver
 
 
 def read_list(file_path):
@@ -15,16 +15,13 @@ def read_list(file_path):
 
 def test_dns(dns_server, website):
     """测试 DNS 服务器对某个网站的响应时间"""
+    resolver = dns.resolver.Resolver()
+    resolver.nameservers = [dns_server]
     try:
         start_time = time.time()
-        subprocess.run(
-            ["nslookup", website, dns_server],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            timeout=5,
-        )
+        resolver.resolve(website)
         return round((time.time() - start_time) * 1000)  # 转换为整数的毫秒
-    except subprocess.TimeoutExpired:
+    except dns.resolver.Timeout:
         return "超时"
     except Exception as e:
         return f"错误: {e}"
