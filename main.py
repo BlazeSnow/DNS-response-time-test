@@ -23,7 +23,7 @@ def test_dns(dns_server, website):
             stderr=subprocess.PIPE,
             timeout=5,
         )
-        return round((time.time() - start_time) * 1000, 2)  # 转换为毫秒
+        return round((time.time() - start_time) * 1000)  # 转换为整数的毫秒
     except subprocess.TimeoutExpired:
         return "超时"
     except Exception as e:
@@ -34,7 +34,7 @@ def generate_table(dns_servers, websites, output_file):
     """生成包含测试结果的表格"""
     with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
-        header = ["DNS服务器\\网站"] + websites
+        header = ["DNS服务器/网站"] + websites
         writer.writerow(header)
 
         for dns in dns_servers:
