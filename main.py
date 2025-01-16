@@ -61,7 +61,7 @@ def generate_table(dns_servers, websites, output_file):
 if __name__ == "__main__":
     dns_file = "server.txt"
     website_file = "website.txt"
-    output_csv = "dns_test_results.csv"
+    output_csv = "results.csv"
 
     dns_servers = read_list(dns_file)
     websites = read_list(website_file)

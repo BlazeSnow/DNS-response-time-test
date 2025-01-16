@@ -11,4 +11,4 @@
 3. 克隆此仓库：```git clone https://github.com/BlazeSnow/DNS-response-time-test```
 4. 编辑```server.txt```和```website.txt```，添加自定义的DNS服务器和测试域名
 5. 运行Python文件：```.\run.bat```
-6. 查看运行结果```dns_test_results.csv```，可以直接使用```Excel```打开
+6. 查看运行结果```results.csv```，可以直接使用```Excel```打开
