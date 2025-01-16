@@ -8,7 +8,7 @@ def read_list(file_path):
         with open(file_path, "r", encoding="utf-8") as file:
             return [line.strip() for line in file if line.strip()]
     except FileNotFoundError:
-        print(f"File {file_path} not found!")
+        print(f"文件 {file_path} 未找到！")
         return []
 
 
@@ -31,7 +31,7 @@ def test_dns(dns_server, website, num_tests=3):
     if valid_times:
         return round(sum(valid_times) / len(valid_times))
     else:
-        return "Timeout/Error"
+        return "超时/错误"
 
 
 def generate_table(dns_servers, websites, output_file):
@@ -43,7 +43,7 @@ def generate_table(dns_servers, websites, output_file):
             result = test_dns(dns, site)
             row.append(result)
         results.append(row)
-        print(f"DNS server {dns} tests complete")
+        print(f"DNS 服务器 {dns} 测试完成")
 
     with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
@@ -55,7 +55,7 @@ def generate_table(dns_servers, websites, output_file):
             row = [site] + [results[j][i + 1] for j in range(len(dns_servers))]
             writer.writerow(row)
 
-    print(f"Test results saved to {output_file}")
+    print(f"测试结果已保存到 {output_file}")
 
 
 if __name__ == "__main__":
@@ -69,6 +69,4 @@ if __name__ == "__main__":
     if dns_servers and websites:
         generate_table(dns_servers, websites, output_csv)
     else:
-        print(
-            "Please ensure that both DNS server list and website list files exist and are not empty!"
-        )
+        print("请确保 DNS 服务器列表和网站列表文件均存在且不为空！")
