@@ -4,7 +4,6 @@ import dns.resolver
 from colorama import Fore, init
 import sys
 
-# 初始化 colorama
 init(autoreset=True)
 
 
@@ -43,7 +42,6 @@ def generate_table(dns_servers, websites, output_file):
     results = []
 
     for dns in dns_servers:
-        # 输出“正在测试”并覆盖后续行
         sys.stdout.write(Fore.YELLOW + f"正在测试 DNS 服务器 {dns} ...\r")
         sys.stdout.flush()
         row = [dns]
@@ -51,9 +49,9 @@ def generate_table(dns_servers, websites, output_file):
             result = test_dns(dns, site)
             row.append(result)
         results.append(row)
-        sys.stdout.write(" " * 50 + "\r")  # 清空当前行
+        sys.stdout.write(" " * 50 + "\r")
         sys.stdout.flush()
-        print(Fore.GREEN + f"DNS 服务器 {dns} 测试完成")  # 输出测试完成
+        print(Fore.GREEN + f"DNS 服务器 {dns} 测试完成")
 
     with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
