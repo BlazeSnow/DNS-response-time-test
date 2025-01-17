@@ -8,7 +8,7 @@ def read_list(file_path):
         with open(file_path, "r", encoding="utf-8") as file:
             return [line.strip() for line in file if line.strip()]
     except FileNotFoundError:
-        print(f"文件 {file_path} 未找到！")
+        print(f"未找到文件 {file_path}")
         return []
 
 
@@ -31,7 +31,7 @@ def test_dns(dns_server, website, num_tests=3):
     if valid_times:
         return round(sum(valid_times) / len(valid_times))
     else:
-        return "超时/错误"
+        return "ERROR"
 
 
 def generate_table(dns_servers, websites, output_file):
@@ -69,4 +69,4 @@ if __name__ == "__main__":
     if dns_servers and websites:
         generate_table(dns_servers, websites, output_csv)
     else:
-        print("请确保 DNS 服务器列表和网站列表文件均存在且不为空！")
+        print("请确保 {dns_file} 和 {website_file} 均存在且不为空！")
