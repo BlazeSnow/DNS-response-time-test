@@ -2,6 +2,7 @@ import csv
 import time
 import dns.resolver
 from colorama import Fore, init
+import sys
 
 # 初始化 colorama
 init(autoreset=True)
@@ -42,14 +43,17 @@ def generate_table(dns_servers, websites, output_file):
     results = []
 
     for dns in dns_servers:
-        # 在输出中加上颜色
-        print(Fore.YELLOW + f"正在测试 {dns} ...")  # 黄色表示测试中
+        # 输出“正在测试”并覆盖后续行
+        sys.stdout.write(Fore.YELLOW + f"正在测试 DNS 服务器 {dns} ...\r")
+        sys.stdout.flush()
         row = [dns]
         for site in websites:
             result = test_dns(dns, site)
             row.append(result)
         results.append(row)
-        print(Fore.GREEN + f"DNS 服务器 {dns} 测试完成")  # 绿色表示测试完成
+        sys.stdout.write(" " * 50 + "\r")  # 清空当前行
+        sys.stdout.flush()
+        print(Fore.GREEN + f"DNS 服务器 {dns} 测试完成")  # 输出测试完成
 
     with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
@@ -61,7 +65,7 @@ def generate_table(dns_servers, websites, output_file):
             row = [site] + [results[j][i + 1] for j in range(len(dns_servers))]
             writer.writerow(row)
 
-    print(Fore.CYAN + f"测试结果已保存到 {output_file}")  # 青色表示结果保存完成
+    print(Fore.CYAN + f"测试结果已保存到 {output_file}")
 
 
 if __name__ == "__main__":
@@ -75,6 +79,4 @@ if __name__ == "__main__":
     if dns_servers and websites:
         generate_table(dns_servers, websites, output_csv)
     else:
-        print(
-            Fore.RED + "请确保 {dns_file} 和 {website_file} 均存在且不为空！"
-        )  # 红色提示
+        print(Fore.RED + "请确保 {dns_file} 和 {website_file} 均存在且不为空！")
