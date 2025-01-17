@@ -24,7 +24,7 @@
 
 1. 安装Python：<https://www.python.org/>
 2. 安装Git：<https://git-scm.com/>
-3. 安装Python库：```pip install dnspython```
+3. 安装Python库：```pip install colorama dnspython```
 4. 找到一个空位置：```cd D:\```
 5. 克隆此仓库：```git clone https://github.com/BlazeSnow/DNS-response-time-test```
 6. 编辑```server.txt```和```website.txt```，添加自定义的DNS服务器和测试域名
